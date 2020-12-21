@@ -12,6 +12,9 @@ import ShippingScreen from './screens/ShippingScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
+import UserListScreen from './screens/UserListScreen';
+import UserEditScreen from './screens/UserEditScreen';
+import ProductListScreen from './screens/ProductListScreen';
 
 
 function App() {
@@ -31,6 +34,9 @@ function App() {
               <Route path='/shipping' component={ShippingScreen} exact />
               <Route path='/payment' component={PaymentMethodScreen} exact />
               <Route path='/placeorder' component={PlaceOrderScreen} exact />
+              <Route path='/admin/userlist' component={UserListScreen} exact />
+              <Route path='/admin/productlist' component={ProductListScreen} exact />
+              <Route path='/admin/user/:id/edit' component={UserEditScreen} exact />
             </Switch>
             </Container>
           </main>
