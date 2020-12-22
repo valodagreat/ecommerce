@@ -4,7 +4,8 @@ import { useDispatch, useSelector} from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import Loader from '../components/Loader/Loader';
 import Message from '../Message/Message';
-import { deleteProduct, listProducts } from '../redux/Product/productActions';
+import { createProduct, deleteProduct, listProducts } from '../redux/Product/productActions';
+import { PRODUCT_CREATE_RESET } from '../redux/Product/productTypes';
 
 function ProductListScreen({history}) {
     const dispatch = useDispatch()
@@ -16,18 +17,24 @@ function ProductListScreen({history}) {
     const {userInfo} = userLogin
 
     const productDelete = useSelector(state => state.productDelete)
-    const { success, loading: loadingDelete, error: errorDelete } = productDelete
+    const { success: successDelete, loading: loadingDelete, error: errorDelete } = productDelete
+
+    const productCreate = useSelector(state => state.productCreate)
+    const { success: successCreate, loading: loadingCreate, error: errorCreate, product: createdProduct } = productCreate
 
     useEffect(() =>{
-        if(!userInfo.isAdmin){
+        dispatch({
+            type: PRODUCT_CREATE_RESET
+        })
+        if(!userInfo || !userInfo.isAdmin){
             history.push(`/login`)
         }
-        if(userInfo && userInfo.isAdmin){
-            history.push(`/admin/product/${userInfo/*createdProduct._id*/}/edit`)
+        if(successCreate){
+            history.push(`/admin/product/${createdProduct._id}/edit`)
         }else{
             dispatch(listProducts())
         }
-    },[dispatch,userInfo,history,success])
+    },[dispatch,userInfo,history,successDelete,successCreate,createdProduct])
 
     const deleteHandler = (id) => {
         if(window.confirm("Are you sure you want to delete")){
@@ -35,8 +42,8 @@ function ProductListScreen({history}) {
         }
         
     }
-    const createProductHandle = (product) => {
-
+    const createProductHandle = () => {
+        dispatch(createProduct())
     }
 
     return (
@@ -53,6 +60,8 @@ function ProductListScreen({history}) {
             </Row>
             {loadingDelete && <Loader />}
             {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+            {loadingCreate && <Loader />}
+            {errorCreate && <Message variant="danger">{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
                 <Table striped bordered hover responsive className="table-sm">
                     <thead>
