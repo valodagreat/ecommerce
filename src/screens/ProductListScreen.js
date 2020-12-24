@@ -2,16 +2,19 @@ import React,{ useEffect} from 'react';
 import { Button, Col, Row, Table } from 'react-bootstrap';
 import { useDispatch, useSelector} from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
+import Paginate from '../components/Paginate/Paginate';
 import Message from '../Message/Message';
 import { createProduct, deleteProduct, listProducts } from '../redux/Product/productActions';
 import { PRODUCT_CREATE_RESET } from '../redux/Product/productTypes';
 
 function ProductListScreen({history}) {
     const dispatch = useDispatch()
+    const {pageNumber} = useParams();
 
     const productList = useSelector(state => state.productList)
-    const {loading, error, products} = productList
+    const {loading, error, products, page, pages} = productList
 
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
@@ -32,9 +35,9 @@ function ProductListScreen({history}) {
         if(successCreate){
             history.push(`/admin/product/${createdProduct._id}/edit`)
         }else{
-            dispatch(listProducts())
+            dispatch(listProducts('', pageNumber || 1))
         }
-    },[dispatch,userInfo,history,successDelete,successCreate,createdProduct])
+    },[dispatch,userInfo,history,successDelete,successCreate,createdProduct,pageNumber])
 
     const deleteHandler = (id) => {
         if(window.confirm("Are you sure you want to delete")){
@@ -63,6 +66,7 @@ function ProductListScreen({history}) {
             {loadingCreate && <Loader />}
             {errorCreate && <Message variant="danger">{errorCreate}</Message>}
             {loading ? <Loader /> : error ? <Message variant="danger">{error}</Message> : (
+                <>
                 <Table striped bordered hover responsive className="table-sm">
                     <thead>
                             <tr>
@@ -98,6 +102,8 @@ function ProductListScreen({history}) {
                             ))}
                         </tbody>
                 </Table>
+                <Paginate page={page} pages={pages} isAdmin={userInfo.isAdmin} />
+                </>
             )}
         </>
     )

@@ -27,7 +27,13 @@ function App() {
             <Container>
             <Switch>
               <Route path='/' component={Homescreen} exact />
-              <Route path='/search/:keyword' component={Homescreen} />
+              <Route path='/search/:keyword' component={Homescreen} exact />
+              <Route path='/page/:pageNumber' component={Homescreen} exact />
+              <Route
+                path='/search/:keyword/page/:pageNumber'
+                component={Homescreen}
+                exact
+              />
               <Route path='/order/:id' component={OrderScreen} exact />
               <Route path='/product/:id' component={ProductScreen} exact />
               <Route path='/cart/:id?' component={CartScreen} exact />
@@ -40,6 +46,7 @@ function App() {
               <Route path='/admin/userlist' component={UserListScreen} exact />
               <Route path='/admin/orderlist' component={OrderListScreen} exact />
               <Route path='/admin/productlist' component={ProductListScreen} exact />
+              <Route path='/admin/productlist/:pageNumber' component={ProductListScreen} exact />
               <Route path='/admin/user/:id/edit' component={UserEditScreen} exact />
               <Route path='/admin/product/:id/edit' component={ProductEditScreen} exact />
             </Switch>

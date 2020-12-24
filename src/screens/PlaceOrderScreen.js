@@ -5,6 +5,8 @@ import { Col, ListGroup, Row, Image, Button } from 'react-bootstrap';
 import Message from '../Message/Message';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../redux/Order/orderActions';
+import { USER_DETAILS_RESET } from '../redux/User/userActions';
+import { ORDER_CREATE_RESET } from '../redux/Order/orderTypes';
 
 function PlaceOrderScreen({history}) {
     const cart = useSelector(state => state.cart)
@@ -20,8 +22,10 @@ function PlaceOrderScreen({history}) {
     useEffect(()=>{
         if(success){
             history.push(`/order/${order._id}`)
+            dispatch({ type: USER_DETAILS_RESET })
+            dispatch({ type: ORDER_CREATE_RESET })
         }
-    },[history,order,success])
+    },[history,order,success,dispatch])
 
     cart.itemsPrice = addDecimals(cart.cartItems.reduce((total, item) =>(item.qty * item.price + total),0))
     cart.shippingPrice = addDecimals(cart.cartItemsPrice > 100 ? 0 : 100)

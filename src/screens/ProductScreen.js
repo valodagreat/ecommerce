@@ -7,6 +7,7 @@ import { createProductReview, listProductDetails } from '../redux/Product/produc
 import Loader from '../components/Loader/Loader';
 import Message from '../Message/Message';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/Product/productTypes';
+import Meta from '../components/Meta/Meta';
 
 function ProductScreen({history}) {
     const {id} = useParams()
@@ -44,6 +45,7 @@ function ProductScreen({history}) {
             <Link className="btn btn-light my-3" to='/'>Go Back</Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> :
             <>
+            <Meta title={product.name} />
             <Row>
             <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid />
