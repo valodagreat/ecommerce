@@ -74,7 +74,8 @@ function OrderScreen({history}) {
     }
 
     return loading ? <Loader /> : error ? <Message variant="danger" >{error}</Message> : <>
-        <h1>Order {order._id}</h1>
+        <p className="order_id">Order <span>{order._id}</span></p>
+        
         <Row>
                 <Col md={8}>
                     <ListGroup variant="flush">

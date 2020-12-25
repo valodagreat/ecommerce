@@ -16,6 +16,11 @@ h2 {
     padding: 0.5rem 0rem;
 }
 
+.order_id {
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
 .rating span {
     margin: 0.1rem;
 }
@@ -52,5 +57,10 @@ h2 {
 @media (max-width: 900px) {
     .carousel-caption h2 {
         font-size: 2.5vw;
+    }
+
+    .order_id {
+        font-weight: bold;
+        font-size: 1rem;
     }
 }
