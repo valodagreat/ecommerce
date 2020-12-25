@@ -41,7 +41,7 @@ function Header() {
                         {
                             window.screen.width >= 768 ?
                             <LinkContainer to='/cart'>
-                                <Nav.Link ><i className="fas fa-shopping-cart" style={{fontSize: "24px"}} ></i>
+                                <Nav.Link className="pr-3" ><i className="fas fa-shopping-cart" style={{fontSize: "24px"}} ></i>
                                 <span className='badge badge-warning' id='lblCartCount'>
                                 {cartItems.length === 0 ? "" : cartItems[0].qty ? (cartItems.reduce((acc, item) =>(acc + item.qty),0)) : cartItems.length}</span> </Nav.Link>
                             </LinkContainer> : null
@@ -53,7 +53,7 @@ function Header() {
                             </LinkContainer>
                             <NavDropdown.Item onClick={logoutHandle}>Logout</NavDropdown.Item>
                         </NavDropdown>) : <LinkContainer to='/login'>
-                            <Nav.Link ><i className="fas fa-user"></i> Sign In</Nav.Link>
+                            <Nav.Link ><i className="fas fa-user" style={{fontSize: "24px"}} ></i> Sign In</Nav.Link>
                         </LinkContainer>}
                         {userInfo && userInfo.isAdmin && (
                             <NavDropdown title={`Admin`} id="adminmenu">
