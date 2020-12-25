@@ -10,6 +10,8 @@ function Header() {
     const dispatch = useDispatch()
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo} = userLogin
+    const cart = useSelector(state => state.cart)
+    const {cartItems} = cart
 
     const logoutHandle = () => {
         dispatch(logout())
@@ -27,7 +29,7 @@ function Header() {
                         <SearchBox />
                         <Nav className="ml-auto">
                         <LinkContainer to='/cart'>
-                            <Nav.Link ><i className="fas fa-shopping-cart"></i> Cart</Nav.Link>
+                            <Nav.Link ><i className="fas fa-shopping-cart"></i>{cartItems.length === 0 ? "" : cartItems[0].qty ? (cartItems.reduce((acc, item) =>(acc + item.qty),0)) : cartItems.length} Cart</Nav.Link>
                         </LinkContainer>
                         {userInfo ? 
                         (<NavDropdown title={userInfo.name} id="username">
