@@ -25,7 +25,7 @@ function Rating({value,text,color}) {
 }
 
 Rating.defaultProps = {
-    color: '#f8e825'
+    color: '#eb8a2f'
 }
 Rating.propTypes = {
     value: PropTypes.number,
