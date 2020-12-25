@@ -24,13 +24,28 @@ function Header() {
                     <LinkContainer to='/'>
                         <Navbar.Brand >Shop It</Navbar.Brand>
                     </LinkContainer>
+                    {
+                        window.screen.width <= 768 ?
+                        <Nav className="ml-auto">
+                        <LinkContainer to='/cart'>
+                            <Nav.Link className="pr-3" ><i className="fas fa-shopping-cart" style={{fontSize: "24px"}} ></i>
+                            <span className='badge badge-warning' id='lblCartCount'>
+                            {cartItems.length === 0 ? "" : cartItems[0].qty ? (cartItems.reduce((acc, item) =>(acc + item.qty),0)) : cartItems.length}</span> </Nav.Link>
+                        </LinkContainer>
+                    </Nav> : null
+                    }
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <SearchBox />
                         <Nav className="ml-auto">
-                        <LinkContainer to='/cart'>
-                            <Nav.Link ><i className="fas fa-shopping-cart"></i>{cartItems.length === 0 ? "" : cartItems[0].qty ? (cartItems.reduce((acc, item) =>(acc + item.qty),0)) : cartItems.length} Cart</Nav.Link>
-                        </LinkContainer>
+                        {
+                            window.screen.width >= 768 ?
+                            <LinkContainer to='/cart'>
+                                <Nav.Link ><i className="fas fa-shopping-cart" style={{fontSize: "24px"}} ></i>
+                                <span className='badge badge-warning' id='lblCartCount'>
+                                {cartItems.length === 0 ? "" : cartItems[0].qty ? (cartItems.reduce((acc, item) =>(acc + item.qty),0)) : cartItems.length}</span> </Nav.Link>
+                            </LinkContainer> : null
+                        }
                         {userInfo ? 
                         (<NavDropdown title={userInfo.name} id="username">
                             <LinkContainer to='/profile'>
