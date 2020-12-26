@@ -39,7 +39,7 @@ function Header() {
                         <SearchBox />
                         <Nav className="ml-auto">
                         {
-                            window.screen.width >= 768 ?
+                            window.screen.width > 768 ?
                             <LinkContainer to='/cart'>
                                 <Nav.Link className="pr-3" ><i className="fas fa-shopping-cart" style={{fontSize: "24px"}} ></i>
                                 <span className='badge badge-warning' id='lblCartCount'>
